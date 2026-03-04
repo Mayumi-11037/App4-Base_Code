@@ -27,7 +27,7 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 -->
 	
    <head> <!-- The head of the tab (won't actually be visible content). -->
-      <title>Hello World</title>  
+      <title>Sleep Debt Risk Calculator</title> <!-- What the program is about -->
       <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Important! This makes the page responsive on phones and tablets. -->
       <meta name="apple-mobile-web-app-capable" content="yes">
       <link rel="stylesheet" href="w3.css"> <!-- This links to the W3.CSS framework for formatting. -->
@@ -36,41 +36,41 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 
 <!-- The above code has already been set. It's the beginning text of the app. -->
 
-<script>
-    var allergy_count = 0;
-    var cold_count = 0; // These are the variables. The code will store them starting from 0. The buttons will add to this.
+<script> // Need to measure sleep debt based on a high-low basis
+    var low_count = 0; // If the risk of sleep debt is low
+    var high_count = 0; // If the risk of sleep debt is high
 
-    function allergyAdd(){
-        allergy_count++; // Adds 1 to allergy score when an allergy answer is selected.
+    function lowAdd(){
+        low_count++; // Adds 1 to low score when a low answer is selected.
     }
 
-    function coldAdd(){
-        cold_count++; // Same function as allergy score, except for cold.
+    function highAdd(){
+        high_count++; // Same function as the low score, except for high risk.
     }
 
-//I need something that will show the results later on. I need commands that can count the number of cold/allergy answers and calculate the result.
+//Now I need something to calculate the answers. I also want an intermediate answer in-between low and high sleep debt risk.
 
-// Three possible options: Cold, allergy, or unsure
+// Three possible options: High, moderate, and low sleep debt risk
 
     function showResult(){ // This will show the result
         var resultText = "";
 
-        if(allergy_count > cold_count){ // The "If" functions compares scores and determines which condition is more likely.
-            resultText = "You may be experiencing ALLERGIES."; // Allergy count must be greater than cold count.
+        if(high_count >= 3){ // Score needs to be greater than 3 to be high.
+            resultText = "HIGH Sleep Debt Risk: You may not be getting sufficient restorative sleep. Consider adjusting sleep schedule and limiting screen exposure."; // High sleep debt risk result.
         }
-        else if(cold_count > allergy_count){
-            resultText = "You may be experiencing a COLD."; // Cold count must be greater than allergy count.
+        else if(high_count == 2){ // Equaling 2 is moderate, since it is half of 4.
+            resultText = "MODERATE Sleep Debt Risk: Some habits may be affecting your sleep quality."; // Moderate sleep debt risk result.
         }
-        else{
-            resultText = "Your symptoms are unclear. Consider consulting a healthcare provider."; // This is the result when the answers show neither a cold nor an allergy.
+        else{ // Anything below the previous results.
+            resultText = "LOW Sleep Debt Risk: Your sleep patterns appear generally healthy."; // Low sleep debt risk result.
         }
 
         document.getElementById("result").innerHTML = resultText;
     }
 
     function restartQuiz(){ // Restart quiz function as an option. A person could test out which symptoms lead to what. 
-        allergy_count = 0;
-        cold_count = 0;
+        low_count = 0;
+        high_count = 0;
         window.location.href = "#"; // Goes back to the first page
     }
 </script>
@@ -101,24 +101,24 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 
 <body>
 <div id="header" class="w3-container w3-flat-carrot"> <!-- div = container box. Also, flat carrot is the color of the background. -->
-	<h1>Cold or Allergies?</h1>
+	<h1>Sleep Debt Calculator</h1> <!-- Changed title of the program -->
 </div>
 
 <!-- Beginning of the quiz. -->
 	
 <div id="content" class="w3-container">
-	<p>Are you feeling like you might have a cold, but wonder if it is allergies? Answer a few short questions to find out!</p> <!-- Fixed up the grammar from the original repository -->
+	<p>Have you been getting enough sleep at night, or are you hitting the sack too late? Answer these questions to assess your sleep health habits!</p> <!-- Changed the introduction description. Should be simple enough for people to understand. -->
 	
-	<a href="#one" class="w3-btn w3-grey w3-round"> Get Started </a> <!-- "Get Started" text will be a start button. -->
+	<a href="#one" class="w3-btn w3-grey w3-round"> Start Assessment </a> <!-- "Start Assessment" text will be a start button. -->
 	
 	<p>The following code has been developed by students and/or researchers of the Freshman Research Initiative DIY Diagnostics Stream at The University of Texas at 		Austin.  This code is shared for demonstration purposes and should not be considered a product -- it is for entertainment purposes only. Any user of this code 			does so at their own risk. Members of the DIY Stream, FRI, and The University of Texas system are not liable for anything related to this code.</p>
  	
 	<p>THIS CODE SHOULD NOT BE USED TO DIAGNOSE ANY KIND OF MEDICAL CONDITION.</p>
-</div> <!-- adding this because it seems to be missing????? -->
+</div> <!-- Above is a disclaimer. -->
 
 <!-- Question 1 info: -->
 
-<!-- Biggest struggle was figuring out the button mechanisms. -->
+<!-- This is resuing code from App 3, but modifying it. -->
 	
 <div class="page" id="one"> <!-- Allows for navigation for the pages. -->
 	<div id="header" class="w3-container w3-flat-carrot">
@@ -126,9 +126,9 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 	</div>
 	
     	<div id="content" class="w3-container"> <!-- Key Identifier: Content. -->
-        <p>Are your eyes watery or itchy?</p> <!-- Question displayed. -->
-		<a href="#two" onclick="allergyAdd()" class="w3-btn w3-black w3-round">Yes</a> <!-- Button function!! It works. --> <!-- Add one count to allergy. -->
-        <a href="#two" onclick="coldAdd()" class="w3-btn w3-black w3-round">No</a> <!-- All of the buttons should be black from here on out. --> <!-- Add one count to cold. -->
+        <p>Do you sleep less than 7 hours most nights?</p> <!-- Question displayed. -->
+		<a href="#two" onclick="highAdd()" class="w3-btn w3-black w3-round">Yes</a> <!-- Add one count to high. -->
+        <a href="#two" onclick="lowAdd()" class="w3-btn w3-black w3-round">No</a> <!-- All of the buttons should be black from here on out. --> <!-- Add one count to low. -->
     	</div>
 </div>
 
@@ -140,9 +140,9 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 	</div>
 	
 	<div id="content" class="w3-container">
-		<p>Do you have a fever?</p> <!-- Question displayed. -->
-		<a href="#three" onclick="coldAdd()" class="w3-btn w3-black w3-round">Yes</a> <!-- Note how the answers and adding shifted. --> <!-- Add one count to cold. -->
-        <a href="#three" onclick="allergyAdd()" class="w3-btn w3-black w3-round">No</a> <!-- Add one count to allergy. -->
+		<p>Do you rely on caffeine to function daily?</p> <!-- Question displayed. -->
+		<a href="#three" onclick="highAdd()" class="w3-btn w3-black w3-round">Yes</a> <!-- Add one count to high. -->
+        <a href="#three" onclick="lowAdd()" class="w3-btn w3-black w3-round">No</a> <!-- Add one count to low. -->
 	</div>
 </div>	
 
@@ -154,9 +154,9 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 	</div>
 	
     	<div id="content" class="w3-container">
-        <p>Do you have a sore throat?</p> <!-- Question displayed. -->
-		<a href="#four" onclick="coldAdd()" class="w3-btn w3-black w3-round">Yes</a> <!-- Add one count to cold. -->
-        <a href="#four" onclick="allergyAdd()" class="w3-btn w3-black w3-round">No</a> <!-- Add one count to allergy. -->
+        <p>Do you feel tired even after a full night's sleep?</p> <!-- Question displayed. -->
+		<a href="#four" onclick="highAdd()" class="w3-btn w3-black w3-round">Yes</a> <!-- Add one count to high. -->
+        <a href="#four" onclick="lowAdd()" class="w3-btn w3-black w3-round">No</a> <!-- Add one count to low. -->
     	</div>
 </div>
 
@@ -168,13 +168,13 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 	</div>
 	
     	<div id="content" class="w3-container">
-        <p>Are your symptoms seasonal or chronic?</p> <!-- Question displayed. -->
-		<a href="#resultPage" onclick="allergyAdd(); showResult();" class="w3-btn w3-black w3-round">Yes</a> <!-- Add one count to allergy. -->
-        <a href="#resultPage" onclick="coldAdd(); showResult();" class="w3-btn w3-black w3-round">No</a> <!-- Add one count to cold. -->
+        <p>Do you use screens (phone/laptop) within 30 minutes of bedtime?</p> <!-- Question displayed. -->
+		<a href="#resultPage" onclick="highAdd(); showResult();" class="w3-btn w3-black w3-round">Yes</a> <!-- Add one count to high. -->
+        <a href="#resultPage" onclick="lowAdd(); showResult();" class="w3-btn w3-black w3-round">No</a> <!-- Add one count to low. -->
     	</div>
 </div>
 
-<div class="page" id="resultPage"> <!-- Shwows the result page. I know the document showed us a way to display the results, but my friend recommended this. -->
+<div class="page" id="resultPage"> <!-- Shwows the result page. -->
     <div class="w3-container w3-flat-carrot">
         <h1>Your Results</h1>
     </div>
@@ -185,7 +185,7 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 </div>
 	
 <footer class="w3-bottom w3-container w3-flat-carrot"> <!-- This is the formatting for the footer. -->
-	<p>DIY!</p>
+	<p>DIY Diagnostics!</p>
 </footer>
 
 <!-- Script seems to be working great. Now test out the code in the "Actions" tab of Github. -->
