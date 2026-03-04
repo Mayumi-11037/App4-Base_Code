@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html> <!-- Tells the browser this is an HTML5 document. -->
 <html> 
 <!-- The following code has been developed by students and/or researchers of the Freshman Research Initiative DIY Diagnostics Stream at The University of Texas at Austin.  This code is shared for demonstration purposes and should not be considered a product -- it is for entertainment purposes only.  Any user of this code does so at their own risk. Members of the DIY Stream, FRI, and The University of Texas system are not liable for anything related to this code.
  
@@ -7,43 +7,76 @@ THIS CODE SHOULD NOT BE USED TO DIAGNOSE ANY KIND OF MEDICAL CONDITION.
  
 Authors in chronological order of contribution:
 Tim Riedel
-Author 2
+Mayumi Lopez
  
 Further Information:
-http://diystream.cns.utexas.edu/
-
+http://cns.utexas.edu/fri
+ 
 Research Educator:
 Timothy Riedel
 triedel@utexas.edu
  
 Brief Description of Goal of Code:
-blah, blah, blah,
+To program an app to determine if an individual has a cold, allergy, or neither in 4 questions.
  
 Known Issues:
-blah, blah, blah, blah
-Ignore this error message if you see it using the javaScript console: Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'interest-cohort'.
+The program needs a button mechanism. The app does not have any questions yet. Also need something to calculate + show the results.
 
-References:
 https://www.w3schools.com/w3css/default.asp
 https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-file
 -->
 	
-<head> 
-	<title>Hello World</title>  
-]	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<link rel="stylesheet" href="w3.css">
-	<link rel="stylesheet" href="w3-colors-flat.css">
-</head> 
+   <head> <!-- The head of the tab (won't actually be visible content). -->
+      <title>Hello World</title>  
+      <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Important! This makes the page responsive on phones and tablets. -->
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <link rel="stylesheet" href="w3.css"> <!-- This links to the W3.CSS framework for formatting. -->
+      <link rel="stylesheet" href="w3-colors-flat.css">
+   </head> 
+
+<!-- The above code has already been set. It's the beginning text of the app. -->
 
 <script>
+    var allergy_count = 0;
+    var cold_count = 0; // These are the variables. The code will store them starting from 0. The buttons will add to this.
 
-	//YOUR JAVASCRIPT GOES HERE
+    function allergyAdd(){
+        allergy_count++; // Adds 1 to allergy score when an allergy answer is selected.
+    }
 
-</script>	
+    function coldAdd(){
+        cold_count++; // Same function as allergy score, except for cold.
+    }
+
+//I need something that will show the results later on. I need commands that can count the number of cold/allergy answers and calculate the result.
+
+// Three possible options: Cold, allergy, or unsure
+
+    function showResult(){ // This will show the result
+        var resultText = "";
+
+        if(allergy_count > cold_count){ // The "If" functions compares scores and determines which condition is more likely.
+            resultText = "You may be experiencing ALLERGIES."; // Allergy count must be greater than cold count.
+        }
+        else if(cold_count > allergy_count){
+            resultText = "You may be experiencing a COLD."; // Cold count must be greater than allergy count.
+        }
+        else{
+            resultText = "Your symptoms are unclear. Consider consulting a healthcare provider."; // This is the result when the answers show neither a cold nor an allergy.
+        }
+
+        document.getElementById("result").innerHTML = resultText;
+    }
+
+    function restartQuiz(){ // Restart quiz function as an option. A person could test out which symptoms lead to what. 
+        allergy_count = 0;
+        cold_count = 0;
+        window.location.href = "#"; // Goes back to the first page
+    }
+</script>
 
 
-<!-- THIS STYLE CODE HELPS MAKE YOUR APP LOOK GOOD. PROBABLY DONT MESS WITH IT -->
+
 <style>	
 .body {
      margin: 0em;
@@ -67,9 +100,95 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 </style>
 
 <body>
+<div id="header" class="w3-container w3-flat-carrot"> <!-- div = container box. Also, flat carrot is the color of the background. -->
+	<h1>Cold or Allergies?</h1>
+</div>
+
+<!-- Beginning of the quiz. -->
 	
-	<!-- HERE IS WHERE ALL OF YOUR HTML PAGES GO -->
-	REPLACE THIS TEXT
+<div id="content" class="w3-container">
+	<p>Are you feeling like you might have a cold, but wonder if it is allergies? Answer a few short questions to find out!</p> <!-- Fixed up the grammar from the original repository -->
+	
+	<a href="#one" class="w3-btn w3-grey w3-round"> Get Started </a> <!-- "Get Started" text will be a start button. -->
+	
+	<p>The following code has been developed by students and/or researchers of the Freshman Research Initiative DIY Diagnostics Stream at The University of Texas at 		Austin.  This code is shared for demonstration purposes and should not be considered a product -- it is for entertainment purposes only. Any user of this code 			does so at their own risk. Members of the DIY Stream, FRI, and The University of Texas system are not liable for anything related to this code.</p>
+ 	
+	<p>THIS CODE SHOULD NOT BE USED TO DIAGNOSE ANY KIND OF MEDICAL CONDITION.</p>
+</div> <!-- adding this because it seems to be missing????? -->
+
+<!-- Question 1 info: -->
+
+<!-- Biggest struggle was figuring out the button mechanisms. -->
+	
+<div class="page" id="one"> <!-- Allows for navigation for the pages. -->
+	<div id="header" class="w3-container w3-flat-carrot">
+		<h1>Question 1</h1>
+	</div>
+	
+    	<div id="content" class="w3-container"> <!-- Key Identifier: Content. -->
+        <p>Are your eyes watery or itchy?</p> <!-- Question displayed. -->
+		<a href="#two" onclick="allergyAdd()" class="w3-btn w3-black w3-round">Yes</a> <!-- Button function!! It works. --> <!-- Add one count to allergy. -->
+        <a href="#two" onclick="coldAdd()" class="w3-btn w3-black w3-round">No</a> <!-- All of the buttons should be black from here on out. --> <!-- Add one count to cold. -->
+    	</div>
+</div>
+
+<!-- Question 2 info: -->
+	
+<div class="page" id="two">
+	<div class="w3-container w3-flat-carrot">
+		<h1>Question 2</h1>
+	</div>
+	
+	<div id="content" class="w3-container">
+		<p>Do you have a fever?</p> <!-- Question displayed. -->
+		<a href="#three" onclick="coldAdd()" class="w3-btn w3-black w3-round">Yes</a> <!-- Note how the answers and adding shifted. --> <!-- Add one count to cold. -->
+        <a href="#three" onclick="allergyAdd()" class="w3-btn w3-black w3-round">No</a> <!-- Add one count to allergy. -->
+	</div>
+</div>	
+
+<!-- Question 3 info: -->
+	
+<div class="page" id="three">
+	<div id="header" class="w3-container w3-flat-carrot">
+		<h1>Question 3</h1>
+	</div>
+	
+    	<div id="content" class="w3-container">
+        <p>Do you have a sore throat?</p> <!-- Question displayed. -->
+		<a href="#four" onclick="coldAdd()" class="w3-btn w3-black w3-round">Yes</a> <!-- Add one count to cold. -->
+        <a href="#four" onclick="allergyAdd()" class="w3-btn w3-black w3-round">No</a> <!-- Add one count to allergy. -->
+    	</div>
+</div>
+
+<!-- Question 4 info: -->
+	
+<div class="page" id="four">
+	<div id="header" class="w3-container w3-flat-carrot">
+		<h1>Question 4</h1>
+	</div>
+	
+    	<div id="content" class="w3-container">
+        <p>Are your symptoms seasonal or chronic?</p> <!-- Question displayed. -->
+		<a href="#resultPage" onclick="allergyAdd(); showResult();" class="w3-btn w3-black w3-round">Yes</a> <!-- Add one count to allergy. -->
+        <a href="#resultPage" onclick="coldAdd(); showResult();" class="w3-btn w3-black w3-round">No</a> <!-- Add one count to cold. -->
+    	</div>
+</div>
+
+<div class="page" id="resultPage"> <!-- Shwows the result page. I know the document showed us a way to display the results, but my friend recommended this. -->
+    <div class="w3-container w3-flat-carrot">
+        <h1>Your Results</h1>
+    </div>
+    <div class="w3-container">
+        <p id="result"></p> <!-- Mapping the input to the result. -->
+        <a href="#one" class="w3-btn w3-blue w3-round" onclick="restartQuiz()">Restart Quiz</a> <!-- Will resert quiz on click and go back to the first page. -->
+    </div>
+</div>
+	
+<footer class="w3-bottom w3-container w3-flat-carrot"> <!-- This is the formatting for the footer. -->
+	<p>DIY!</p>
+</footer>
+
+<!-- Script seems to be working great. Now test out the code in the "Actions" tab of Github. -->
 	
 </body>
 </html>
